@@ -1,6 +1,7 @@
 <template>
   <nav class="navbar">
-    <button class="toggle" @click="$store.commit('toggle')">
+    <!-- <button class="toggle" @click="$store.commit('toggleButton')"> -->
+    <button class="toggle" @click="store.toggleButton">
       <font-awesome-icon class="icon" :icon="['fas', 'bars-staggered']" />
     </button>
 
@@ -8,7 +9,9 @@
 </template>
 
 <script setup>
+import { useWeatherStore } from '../store/store'
 
+const store = useWeatherStore()
 </script>
 
 <style lang="scss" scoped>

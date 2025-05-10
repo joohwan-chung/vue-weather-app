@@ -3,23 +3,35 @@ import Navbar from './components/Navbar.vue'
 import MainComp from './components/MainComp.vue'
 import About from './components/About.vue'
 import { onMounted } from 'vue'
-import { useStore } from 'vuex'
+// import { useStore } from 'vuex'
+import { useWeatherStore } from './store/store'
+import { storeToRefs } from 'pinia'
 
-const store = useStore()
+// const store = useStore()
+// onMounted(() => {
+//   store.dispatch('getWeatherData', 'Seoul')
+// })
+
+// const search = (city) => {
+//   store.dispatch('getWeatherData', city)
+// }
+
+
+const store = useWeatherStore()
+const { toggle } = storeToRefs(store)
+
 onMounted(() => {
-  store.dispatch('getWeatherData', 'Seoul')
+  store.getWeatherData()
 })
 
-const search = (city) => {
-  store.dispatch('getWeatherData', city)
-}
 </script>
 
 <template>
   <Navbar />
 
-  <div v-if="!$store.state.toggle">
-    <MainComp @search="search" />
+  <!-- <div v-if="!$store.state.toggle"> -->
+  <div v-if="!toggle">
+    <MainComp />
   </div>
   <div v-else>
     <About />

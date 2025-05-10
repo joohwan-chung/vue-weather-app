@@ -3,10 +3,15 @@
     <form @submit.prevent>
       <div class="form-group">
         <input @input="city = $event.target.value" type="search" placeholder="지역을 입력하세요" />
-        <button 
+        <!-- <button 
           @click="
             $store.commit('setCity', city);
             $store.dispatch('getWeatherData');
+          "> -->
+          <button 
+          @click="
+            store.setCity(city);
+            store.getWeatherData();
           ">
           <font-awesome-icon class="icon" :icon="['fas', 'magnifying-glass']" />
         </button>
@@ -17,8 +22,12 @@
 
 <script setup>
 import { ref } from 'vue'
+import { useWeatherStore } from '../store/store'
+import { storeToRefs } from 'pinia'
 
-const city = ref('')
+const store = useWeatherStore()
+const { city } = storeToRefs(store)
+const emit = defineEmits(['search'])
 
 </script>
 
